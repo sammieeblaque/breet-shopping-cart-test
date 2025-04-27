@@ -4,7 +4,7 @@ import { Model, SortOrder } from 'mongoose';
 import { Product, ProductDocument } from './schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { RedisService } from 'src/redis/redis.service';
+import { RedisService } from 'src/modules/redis/redis.service';
 
 @Injectable()
 export class ProductsService {

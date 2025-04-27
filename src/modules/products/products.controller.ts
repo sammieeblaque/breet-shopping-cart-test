@@ -13,6 +13,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
+import { IQuery } from 'src/@types';
 
 @ApiTags('products')
 @Controller('products')
@@ -28,18 +29,8 @@ export class ProductsController {
 
   @Get()
   @ApiOperation({ summary: 'Get all products' })
-  async findAll(
-    @Query('page') page = 1,
-    @Query('limit') limit = 10,
-    @Query('sortBy') sortBy = 'createdAt',
-    @Query('order') order = 'desc',
-  ) {
-    return this.productsService.findAll({
-      page: +page,
-      limit: +limit,
-      sortBy,
-      order,
-    });
+  async findAll(@Query() query: IQuery) {
+    return this.productsService.findAll(query);
   }
 
   @Get(':id')

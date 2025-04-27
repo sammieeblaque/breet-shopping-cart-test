@@ -7,9 +7,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Cart, CartDocument } from './schemas/cart.schema';
 import { AddToCartDto } from './dto/add-to-cart.dto';
-import { ProductsService } from '../products/products.service';
-import { UsersService } from '../users/users.service';
-import { RedisService } from '../redis/redis.service';
+import { ProductsService } from '../modules/products/products.service';
+import { UsersService } from '../modules/users/users.service';
+import { RedisService } from '../modules/redis/redis.service';
 
 @Injectable()
 export class CartsService {
@@ -69,7 +69,6 @@ export class CartsService {
       throw new Error('Failed to acquire lock for cart operation');
     }
 
-    // File: carts/carts.service.ts (continued)
     try {
       // Get product details to verify stock and price
       const product = await this.productsService.findOne(productId);

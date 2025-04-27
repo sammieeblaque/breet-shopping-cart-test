@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 // import { MongooseModule } from '@nestjs/mongoose';
-import { ProductsModule } from './products/products.module';
-import { RedisModule } from './redis/redis.module';
-import { UsersModule } from './users/users.module';
+import { ProductsModule } from './modules/products/products.module';
+import { RedisModule } from './modules/redis/redis.module';
+import { UsersModule } from './modules/users/users.module';
 import { CartsModule } from './carts/carts.module';
-import { SeedModule } from './seed/seed.module';
+import { SeedModule } from './modules/seed/seed.module';
 
 @Module({
   imports: [
