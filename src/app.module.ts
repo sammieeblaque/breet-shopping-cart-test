@@ -6,6 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 // import { MongooseModule } from '@nestjs/mongoose';
 import { ProductsModule } from './products/products.module';
 import { RedisModule } from './redis/redis.module';
+import { UsersModule } from './users/users.module';
+import { CartsModule } from './carts/carts.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -16,9 +19,15 @@ import { RedisModule } from './redis/redis.module';
     }),
     MongooseModule.forRoot(
       process.env.MONGODB_URI || 'mongodb://localhost:27017/shopping-cart',
+      {
+        retryAttempts: 2,
+      },
     ),
     ProductsModule,
     RedisModule,
+    UsersModule,
+    CartsModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
