@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Cart, CartSchema } from './schemas/cart.schema';
-import { ProductsModule } from '../modules/products/products.module';
-import { UsersModule } from '../modules/users/users.module';
+import { ProductsModule } from '@/modules/products/products.module';
+import { UsersModule } from '@/modules/users/users.module';
 import { CartsController } from './carts.controller';
 import { CartsService } from './carts.service';
 
