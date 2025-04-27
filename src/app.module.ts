@@ -7,8 +7,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProductsModule } from './modules/products/products.module';
 import { RedisModule } from './modules/redis/redis.module';
 import { UsersModule } from './modules/users/users.module';
-import { CartsModule } from './carts/carts.module';
 import { SeedModule } from './modules/seed/seed.module';
+import { CartsModule } from './modules/carts/carts.module';
 
 @Module({
   imports: [
