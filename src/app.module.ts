@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 // import { MongooseModule } from '@nestjs/mongoose';
 import { ProductsModule } from './products/products.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ProductsModule } from './products/products.module';
       process.env.MONGODB_URI || 'mongodb://localhost:27017/shopping-cart',
     ),
     ProductsModule,
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],
