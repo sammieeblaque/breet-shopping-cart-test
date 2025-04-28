@@ -50,7 +50,7 @@ This will:
 2. Install dependencies:
 
 ```bash
-npm install
+npm install (I used pnpm)
 ```
 
 3. Create a `.env` file in the project root with the following content:
