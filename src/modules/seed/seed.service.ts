@@ -12,9 +12,11 @@ export class SeedService implements OnModuleInit {
   async onModuleInit() {
     await this.seedUsers();
     await this.seedProducts();
+    console.log('Seeding completed successfully');
   }
 
   private async seedUsers() {
+    console.log('Starting user seeding...');
     const users = [
       { name: 'John Doe', email: 'john@example.com' },
       { name: 'Jane Smith', email: 'jane@example.com' },
@@ -23,16 +25,24 @@ export class SeedService implements OnModuleInit {
 
     for (const user of users) {
       try {
+        // Check if user exists before creating
+        const existingUser = await this.usersService.findByEmail(user.email);
+        if (existingUser) {
+          console.log(`User with email ${user.email} already exists, skipping`);
+          continue;
+        }
+
         await this.usersService.create(user);
-        console.log(`User ${user.name} created`);
+        console.log(`User ${user.name} created successfully`);
       } catch (error) {
-        // Skip if user already exists
-        console.log(`User ${user.name} already exists`, error.message);
+        console.error(`Error while creating user ${user.name}:`, error.message);
       }
     }
+    console.log('User seeding completed');
   }
 
   private async seedProducts() {
+    console.log('Starting product seeding...');
     const products = [
       {
         name: 'Smartphone',
@@ -68,12 +78,24 @@ export class SeedService implements OnModuleInit {
 
     for (const product of products) {
       try {
+        // Check if product exists before creating
+        const existingProduct = await this.productsService.findByName(
+          product.name,
+        );
+        if (existingProduct) {
+          console.log(`Product "${product.name}" already exists, skipping`);
+          continue;
+        }
+
         await this.productsService.create(product);
-        console.log(`Product ${product.name} created`);
+        console.log(`Product "${product.name}" created successfully`);
       } catch (error) {
-        // Skip if product already exists
-        console.log(`Product ${product.name} already exists`, error.message);
+        console.error(
+          `Error while creating product "${product.name}":`,
+          error.message,
+        );
       }
     }
+    console.log('Product seeding completed');
   }
 }

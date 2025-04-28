@@ -7,8 +7,7 @@ import { RedisService } from '@/modules/redis/redis.service';
 
 @Injectable()
 export class UsersService {
-  private readonly CACHE_TTL = 60 * 30 * 1000; // 30 minutes
-
+  private readonly CACHE_TTL = 60 * 30 * 1000;
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private readonly redisService: RedisService,
@@ -47,7 +46,7 @@ export class UsersService {
       return JSON.parse(cachedUser);
     }
 
-    const user = await this.userModel.findById(id).exec();
+    const user = await this.userModel.findById(id).lean().exec();
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
@@ -58,6 +57,13 @@ export class UsersService {
       this.CACHE_TTL,
     );
     return user;
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    // Email should be unique, so we can safely return the first match
+    return await this.userModel.findOne({
+      email,
+    });
   }
 
   private async invalidateUserCache(id?: string): Promise<void> {

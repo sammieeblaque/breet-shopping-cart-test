@@ -33,7 +33,15 @@ export class ProductsService {
     page: number;
     limit: number;
   }> {
-    const { page, limit, sortBy, order } = options;
+    // add default page and limit values and sortby and order values
+    const defaultPage = 1;
+    const defaultLimit = 10;
+    const defaultSortBy = 'createdAt';
+    const defaultOrder = 'desc';
+    const page = options.page || defaultPage;
+    const limit = options.limit || defaultLimit;
+    const sortBy = options.sortBy || defaultSortBy;
+    const order = options.order || defaultOrder;
 
     const cacheKey = `products:list:${page}:${limit}:${sortBy}:${order}`;
     const cachedData = await this.redisService.cacheGet(cacheKey);
@@ -176,5 +184,14 @@ export class ProductsService {
     } finally {
       await this.redisService.releaseLock(`product:${id}`, lockToken);
     }
+  }
+
+  async findByName(name: string): Promise<Product | null> {
+    // Case insensitive search for the product name
+    return await this.productModel
+      .findOne({
+        name: { $regex: new RegExp(`^${name}$`, 'i') },
+      })
+      .exec();
   }
 }
