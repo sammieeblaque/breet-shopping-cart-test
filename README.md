@@ -14,9 +14,9 @@ A scalable shopping cart system API built with NestJS, MongoDB, and Redis, desig
 
 ## Tech Stack
 
-- NestJS
-- MongoDB
-- Redis
+- Node(NestJS)
+- MongoDB (Mongoose)
+- Redis (ioredis)
 - TypeScript
 - Docker for containerization
 
