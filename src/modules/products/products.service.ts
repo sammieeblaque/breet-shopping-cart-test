@@ -147,7 +147,6 @@ export class ProductsService {
     }
   }
 
-  // Cache invalidation helper methods
   private async invalidateProductCache(id?: string): Promise<void> {
     if (id) {
       await this.redisService.cacheDelete(`products:${id}`);
@@ -155,7 +154,7 @@ export class ProductsService {
     await this.redisService.cacheInvalidatePattern('products:list:*');
   }
 
-  // Helper method to check if product has sufficient stock
+  // check if product has sufficient stock
   async checkStock(id: string, quantity: number): Promise<boolean> {
     const product = await this.productModel.findById(id).exec();
     return product && product.stock >= quantity;
@@ -187,7 +186,6 @@ export class ProductsService {
   }
 
   async findByName(name: string): Promise<Product | null> {
-    // Case insensitive search for the product name
     return await this.productModel
       .findOne({
         name: { $regex: new RegExp(`^${name}$`, 'i') },
